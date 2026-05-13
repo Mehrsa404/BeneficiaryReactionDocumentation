@@ -1,0 +1,736 @@
+{
+  "Kestrel": {
+    "Limits": {
+      "MaxRequestHeadersTotalSize": 32768, // 32 KB
+      "MaxRequestHeaderCount": 100, // Maximum 100 headers
+      "MaxRequestLineSize": 8192, // 8 KB
+      "MaxRequestBodySize": 104857600, // 100 MB
+      "RequestHeadersTimeout": 60, //60 seconds
+      "KeepAliveTimeout": 120 //120 seconds
+    }
+  },
+  "ConnectionStrings": {
+    "Portal": "dOO75nIxoSOIbs5PskJp+9OfGudAj42v+UtwcRv17BCSGDkVhy2f0Kzd+y6Wzapz86MJzbDGfkjbZO+7BKGUN87l5GkMD29mcGNdXGQaYIqEuMbrXvYV6WDemVmn+1iw83+fF/Hv85u1hkB2FXJJRXSFZtl6reR0un+NPPg9o7E=",
+    "PortalCore": "dOO75nIxoSOIbs5PskJp+9OfGudAj42v+UtwcRv17BCSGDkVhy2f0Kzd+y6Wzapz86MJzbDGfkjaj3ZML+NbrnKPaLwB1/6Rs+HhelabN8F7DjDnFbAOBecsulCi99017tEl6eImM5igBbotKccBZnwZlQC8GqaO",
+    "PortalFile": "dOO75nIxoSOIbs5PskJp+9OfGudAj42v+UtwcRv17BCSGDkVhy2f0Kzd+y6Wzapz86MJzbDGfkjbZO+7BKGUN87l5GkMD29mpWRmGQwR4y7smzNAYJIae3EMGTF7vqgzW0551sV/vMeeE3Xub86Gu+hZfArBWkxU/EtzxaDYT+c=",
+    "PortalLog": "dOO75nIxoSOIbs5PskJp+9OfGudAj42v+UtwcRv17BCSGDkVhy2f0Kzd+y6Wzapz86MJzbDGfkjbZO+7BKGUN87l5GkMD29m8WP8u7jcHAavM1LO6PSn/oMEYhKJLIDrAtpJVQb4HoOT2Cjj1ahzEBQI8w1Z3uvk1gTPwaS2f/E=",
+    "PortalWorkflow": "",
+    "PortalBam": "",
+    "PortalCMS": "",
+    "PortalArchive": "",
+    "PortalWebForm": "",
+    "PortalSurvey": "",
+    "PortalDiscussion": "",
+    "PortalSearchEngine": "",
+    "PortalSchedule": "dOO75nIxoSOIbs5PskJp+9OfGudAj42v+UtwcRv17BCSGDkVhy2f0Kzd+y6Wzapz86MJzbDGfkjbZO+7BKGUN87l5GkMD29m9KpITnbZgqj4C5fpZDQ5jSlYP15G/kLpBRbVVSVKzSaE8ZiTaNhBBuD71Ho5cBHPa50ZqHqHlqw="
+  },
+  "Setting": {
+    "General": {
+      "BPMSEnvironment": "Portal",
+      "DefaultLanguage": "fa", //ar->arabic / fa->persian /en ->english /ur ->urdo
+      "SessionTimeout": 36000,
+      "MaxSessionCountPerUser": 0, //0 for no check
+      "SessionCookieName": "PortalSessionCookie",
+      "LegacySessionCookieName": "SessionCookie",
+      "PortalId": "Main",
+      "StudioId": "Studio",
+      "Generation": "SecondGeneration", //FirstAndSecondGeneration,FirstGeneration,SecondGeneration
+      "Environment": "Development", // Development - QC - Staging - Production
+      "FillActorInContext": "Login", // Login , LoadCartable
+      "MaxPageSize": 9999
+    },
+    "Lang": [
+      {
+        "Title": "فارسی",
+        "Key": "fa"
+      } /*,
+      {
+        "Title": "English",
+        "Key": "en"
+      },
+      {
+        "Title": "العربیة",
+        "Key": "ar"
+      }*/
+    ],
+    "Database": {
+      "AutoMigrateEnable": true,
+      "Portal": {
+        "Provider": "SqlServer",
+        "Name": "Portal",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": true
+      },
+      "PortalCore": {
+        "Provider": "SqlServer",
+        "Name": "PortalCore",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalFile": {
+        "Provider": "SqlServer",
+        "Name": "PortalFile",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalArchive": {
+        "Provider": "SqlServer",
+        "Name": "PortalArchive",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalCMS": {
+        "Provider": "SqlServer",
+        "Name": "PortalCMS",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalLog": {
+        "Provider": "SqlServer", // use MongoDB OR SqlServer OR Elastic
+        "Name": "PortalLog",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": true
+      },
+      "PortalWorkflow": {
+        "Provider": "SqlServer",
+        "Name": "PortalWorkflow",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalSurvey": {
+        "Provider": "SqlServer",
+        "Name": "PortalSurvey",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalWebForm": {
+        "Provider": "SqlServer",
+        "Name": "PortalWebForm",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalBam": {
+        "Provider": "SqlServer",
+        "Name": "PortalBam",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalDiscussion": {
+        "Provider": "SqlServer",
+        "Name": "PortalDiscussion",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false
+      },
+      "PortalSearchEngine": {
+        "Provider": "Elastic", // Just for elastic
+        "Name": "PortalSearchEngine",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false,
+        "IgnoreSSLValidation": false
+      },
+      "PortalSchedule": {
+        "Provider": "SqlServer",
+        "Name": "PortalSchedule",
+        "IsolationLevel": 256,
+        "SqlCommandTimeout": 180,
+        "AutoMigrate": false,
+        "IgnoreSSLValidation": false
+      }
+    },
+    "Security": {
+      "GatewayAuthentication": false,
+      "GatewayBlackListedTokenCheck": false,
+      "ApiGatewayIsHttps": false,
+      "MicroserviceIsHttps": false,
+      "DbKey": "thisisencryptkey",
+      "ShowUsername": true,
+      "UserTitlePattern": "{FirstName} {LastName} ({Username})",
+      "IsAntiforgery": false,
+      "EFProfiler": true,
+      "BlackListedTokensRedis": {
+        "Configuration": "internal-portal-redis-master-0.internal-portal-redis-headless:6379,password=!@#123qwe",
+        "ReadConfiguration": "internal-portal-redis-master-0.internal-portal-redis-headless:6379,password=!@#123qwe",
+        "WriteConfiguration": "internal-portal-redis-master-0.internal-portal-redis-headless:6379,password=!@#123qwe",
+        "InstanceName": "",
+        "ConfigurationOptions": {
+          "Ssl": false,
+          "AbortOnConnectFail": false,
+          "ConnectRetry": 5,
+          "ConnectTimeout": 10000,
+          "SyncTimeout": 10000,
+          "AsyncTimeout": 10000
+        }
+      }
+    },
+    "AntiDos": {
+      "IPBlockMode": "Disable", //Automatic, Manual, Disable
+      "AllowedRequestsCount": 0, //disable AntiDos : Zero
+      "DurationMilliseconds": 2000,
+      "AllowedFailRequestsCount": 0, //disable failure AntiDos : Zero
+      "DurationFailMilliseconds": 5000,
+      "RateLimitPerService": "Active" //Active, Disable
+    },
+    "SignalR": {
+      "BPMSHttpTransportType": "All", // All - WebSockets - None
+      "HubPath": "/api_hub",
+      "LogLevel": [] // Group - Send - Connection
+    },
+    "RabbitMq": {
+      "Host": "external-portal-rabbitmq",
+      "VirtualPath": "/",
+      "Username": "kasra",
+      "Password": "kasra"
+    },
+    "Kafka": {
+      "BootstrapServers": "external.abriment.com:31757",
+      "GroupId": "your-consumer-group",
+      "SaslUsername": "Username",
+      "SaslPassword": "Password",
+      "MaxPollIntervalMs": 300000, //default 5 minute
+      "EnableAutoCommit": false
+    },
+    "Redis": {
+      "Configuration": "internal-portal-redis-master-0.internal-portal-redis-headless:6379,password=!@#123qwe",
+      "ReadConfiguration": "internal-portal-redis-master-0.internal-portal-redis-headless:6379,password=!@#123qwe",
+      "InstanceName": "",
+      "IsCompression": false,
+      "ConfigurationOptions": {
+        "Ssl": false,
+        "AbortOnConnectFail": false,
+        "ConnectRetry": 5,
+        "ConnectTimeout": 10000,
+        "SyncTimeout": 10000,
+        "AsyncTimeout": 10000
+      }
+    },
+    "ElasticSearch": {
+      "Uri": "http://localhost:9200",
+      "Index": "Cartable"
+    },
+    "Log": {
+      "UseLog": "Serilog", //Serilog
+      "Sentry": false,
+      "ClientLogType": "User", // None - System - User
+      "MemoryTrackerLog": false,
+      "MemoryTrackerThreshold": 1000, // MB
+      "BatchSize": 1,
+      "FlushInterval": 1, //Seconds
+      "SystemLog": {
+        "Serilog": {
+          "Using": [
+            "Serilog.Sinks.Console",
+            "Serilog.Sinks.File"
+          ],
+          "MinimumLevel": {
+            "Default": "Information", // Verbose, Debug, Information, Warning, Error, Fatal
+            "Override": {
+              "Microsoft": "Warning",
+              "Microsoft.Hosting.Lifetime": "Information",
+              "Microsoft.AspNetCore.HttpLogging.HttpLoggingMiddleware": "Information",
+              "Yarp.ReverseProxy": "Information",
+              "MicroserviceLogger": "Verbose",
+              "Microservices.Common.Log.EventViewLog": "Information",
+              "Microservices.Common.Log.LoginLog": "Information",
+              "Microservices.Common.Log.ServiceLog": "Information"
+            }
+          },
+          "Enrich": [
+            "FromLogContext"
+          ],
+          "WriteTo": [
+            {
+              "Name": "Console",
+              "Args": {
+                "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
+              }
+            },
+            {
+              "Name": "File",
+              "Args": {
+                "path": "logs/log.txt",
+                "shared": true,
+                "rollingInterval": "Day",
+                "fileSizeLimitBytes": 300000000, // 300 MB limit
+                "rollOnFileSizeLimit": true,
+                "retainedFileCountLimit": 7, // Keep only last 7 log files
+                "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"
+              }
+            }
+          ]
+        }
+      },
+      "DatabaseLog": {
+        "Serilog": {
+          "MinimumLevel": {
+            "Default": "Warning",
+            "Override": {
+              "Microsoft.EntityFrameworkCore.Model.Validation": "Error"
+            }
+          },
+          "Enrich": [
+            "FromLogContext"
+          ]
+        }
+      },
+      "EntityLog": {
+        "EventViewLog": "Console", //DataBase Console
+        "ServiceLogInfo": "Console", //DataBase Console
+        "LoginLog": "Console" //DataBase Console
+      },
+      "ServiceLog": {
+        "MicroserviceName": [
+          "Auth",
+          "Log",
+          "Upload"
+        ]
+      },
+      "HTTPLogging": {
+        "LogRequestBody": false,
+        "LogResponseBody": false
+      }
+    },
+    "Network": {
+      "MACAddress": false
+    },
+    "OpenTelemetry": {
+      "Tracing": true,
+      "TracingDetail": true,
+      "Metrics": true,
+      "EfLog": true,
+      "Sensetive": false,
+      "Sources": [
+        "*"
+      ],
+      "Elastic": {
+        "EnableTracing": true,
+        "CaptureRequestBody": true,
+        "CaptureResponseBody": false,
+        "CaptureRequestSize": true,
+        "CaptureResponseSize": true,
+        "MaxBodyLength": 1000,
+        "LogErrors": true
+      }
+    },
+    "Jaeger": {
+      "Url": "http://infra-tempo-distributor.0b804150259f44c1aa471b4e1f496ae7-infra.svc.cluster.local:4317"
+    },
+    "Resiliency": {
+      "RedisResiliency": {
+        "CircuitBreaker": {
+          "Enable": false,
+          "Name": "redis-circuit-breaker",
+          "FailureRatio": 0.9,
+          "SamplingDuration": 30,
+          "MinimumThroughput": 100,
+          "BreakDuration": 5
+        }
+      },
+      "RabbitMqResiliency": {
+        "CircuitBreaker": {
+          "Enable": false,
+          "Name": "rabbitmq-circuit-breaker",
+          "FailureRatio": 0.9,
+          "SamplingDuration": 30,
+          "MinimumThroughput": 100,
+          "BreakDuration": 5
+        }
+      },
+      "SSOResiliency": {
+        "CircuitBreaker": {
+          "Enable": false,
+          "Name": "sso-circuit-breaker",
+          "FailureRatio": 0.9,
+          "SamplingDuration": 30,
+          "MinimumThroughput": 100,
+          "BreakDuration": 5
+        }
+      }
+    },
+    "Sentry": {
+      "Dsn": "http://4b9646ae61889b1bb1bbb2330a5b5ce5@192.168.0.70:9000/2",
+      "SendDefaultPii": true,
+      "MaxRequestBodySize": "Always",
+      "CaptureFailedRequests": true,
+      "SendClientReports": false,
+      "MinimumBreadcrumbLevel": "Debug",
+      "MinimumEventLevel": "Warning",
+      "AttachStackTrace": true,
+      "Debug": false,
+      "DiagnosticsLevel": "Debug", // Debug  Info  Warning  Error Fatal
+      "TracesSampleRate": 1.0
+    },
+    "ESBSetting": {
+      "Enable": false,
+      "Url": "http://192.168.161.33:8280/arshi/1.0.0",
+      "TokenEndPoint": "http://192.168.161.33:9763/oauth2/token",
+      "ClientId": "mauJRK1DddkeZ66cVmh9FINXPUka",
+      "ClientSecret": "2iMzKlor5YkexKbyW5tdJJ3vX64a",
+      "Scope": "kasra-portal"
+    },
+    "Jwt": {
+      "TokenType": "Bearer",
+      "AccessSecret": "NzA2MUREMTZCMzQzODkxMjQyODdBMEJFQTgwMzUzRUU=",
+      "RefreshSecret": "NzA2MUREMTZCMzQzODkxMjQyODdBMEJFQTgwMzUzRUU=",
+      "Issuer": "portal_server",
+      "Audience": "portal_client",
+      "AccessExpiration": 36000,
+      "RefreshExpiration": 36000,
+      "TokenPayloadSecretKey": "NzA2MUREMTZCMzQzODkxMjQyODdBMEJFQTgwMzUzRUU=",
+      "AuthenticationType": "PortalJWT",
+      "AccessPrivateKeyPem": "-----BEGIN PRIVATE KEY-----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-----END PRIVATE KEY-----",
+      "AccessPublicKeyPem": "-----BEGIN PUBLIC KEY-----MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAmtgGypObQXeGOQmiCcgLoX81tDKUiCtbRDzNp4FqNgUNliIhggGJa5FOfQu8JSQRjoyoEgHKIWs5TzYBHoA5shEnm4TYmUW/fWNZB1b7LF6k8tUpea4QUlka7bHFRfgTdL7UYlHXpqicVVATNgmp7wVkRuraLy6FsdK01q8y7y8MU/bGnBAhXgOhNvxAYePmvIDspUloccEcuh1XLvoeHt0vUbz73qW6mWPWXUrN6SVHur4HpFy1+Q5njHxHehwQNCA/lM60DMxOD5s36pg0tCM/wSYoBGCwPi4BbPzUoUDQkPwgbnWIp6Re5WKSlOlNNxrcGeVuatY4mJjzwqlKxchWSLzFlEyf+xI6aHQeg5T12vLbfeaCfsDWIANPJRZFpa2pKN2PVadxsUHQvRtjyl4lwbvUhGpOdE4bgTzCZznJX5H6IOvJp5rM7yrsDjc7tMMUkC099+se/rf6UQcsDLlCG2eur0LoXgN+056IMYxMWIwHjUwzA3E1d4v1LRF1OoZ3H//EXOA1D1y0wtJpKeXGI8ML01nGEvOKixOfeaFecLquQdzUXCxKH8lgNlXUjoU/hamDyITwiF9B3dGMV0hr4naILS0QztbcROgaDpGaRGT0pF0yyWzO/PGg9Qri5Y/l+fw0yQ06qogL4BB92/BhfFDuw4YrvXvYwsUTMNUCAwEAAQ==-----END PUBLIC KEY-----"
+    },
+    "CleanStringInput": {
+      "IsCheckForXss": true,
+      "IsCheckForSqlInjection": true,
+      "IsPersianCharModification": false,
+      "IsHalfSpaceToSpace": false,
+      "IsYModification": false,
+      "IsKModification": false,
+      "IsDigitModification": false,
+      "IsAlefModification": false,
+      "IsSpaceModification": false,
+      "IsControlSpaceToSpace": false,
+      "IsTaTanisToHe": false,
+      "IsErabCleaning": false,
+      "IsRemoveDiacritics": false,
+      "IsTrimModification": false,
+      "IsHalfSpaceModification": false,
+      "ModeYKModification": 0
+    },
+    "Encryption": {
+      "QueryStringMode": "no-secure", // no-secure Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "QueryStringSaltMode": "0",
+      "QueryStringKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "SecureFileMode": "no-secure", // no-secure Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "SecureFileSaltMode": "0",
+      "SecureFileKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "PasswordMode": "aes-cbc", // no-secure Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "PasswordKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "SessionMode": "aes-cbc", // no-secure Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "SessionKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "PasswordSaltMode": 0
+    },
+    "LegacyEncryption": {
+      "QueryStringMode": "aes-cbc", // no-secure Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "QueryStringSaltMode": "1",
+      "QueryStringKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "PasswordMode": "aes-cbc", // no-secure Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "PasswordKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "SessionMode": "aes-cbc", // no-secure Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "SessionKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "PasswordSaltMode": 0
+    },
+    "Jobs": {
+      "WorkflowCurrentExecutionTime": { //  جاب محاسبه زمان هر مرحله از فرآیند به ازای هر نمونه در حال اجرا
+        "StartTimeHour": 23, // ساعت شروع اجرای جاب در هر روز
+        "StartTimeMinute": 30, // دقیقه شروع اجرای جاب در هر روز
+        "StopTimeHour": 7, // ساعت توقف اجرای جاب در هر روز
+        "StopTimeMinute": 0, // دقیقه توقف اجرای جاب در هر روز
+        "BatchSize": 1000, // اندازه دسته : رکوردها در دسته های چندتایی واکشی شوند؟
+        "GetExecutionPropertisResultType": 0 // 0: New, 1: Old
+      },
+      "LogOffExecutionTime": {
+        "PerHour": 1 // 1-23 (ساعت)
+      },
+      "RemoveTempFileTime": {
+        "PerMinute": 15, //هر 15 دقیقه بررسی می شود
+        "UploadTimePerMinute": 15 //فایل های با عمر بیش از 15 دقیقه را حذف می کند
+      }
+    },
+    "ExportFile": {
+      "MaxFileSize": 100,
+      "MaxRecordsCount": 9999,
+      "FileSignature": {
+        "Active": false,
+        "StartSignatureBlock": "---BEGIN-SIGNATURE-BLOCK---",
+        "EndSignatureBlock": "---END-SIGNATURE-BLOCK---",
+        "SignatureVersion": 1,
+        "PrivateKey": "MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC4slKxtBA7vhDLudIEbTVSIiztiSWR7s45QheFT3Gsr5NtOXwHhWaZkP3yqubiP8DrQqE4Dn0sEzQk3I6/8CmqRYeEaAcTJBsTujhqYakpYcQXuTmCGUm0NON+UIR1mEjh9fvq2TgvEpyh6qATzGtzuQ2dVymmb6r2LuIlCOlRFXBN7i3b5ChkYqdqtl5xMICAJi2AF0ebvOPAb28av0o6t/jI9QXyNqkUa8WYaA6OELNkX/n2tBKEcKLpgwcMPiNurk/ueta5w5Yz5Al6beYTAqF4+bRYkMB+2V+QROdh19CxLVJdmB7lUAB1J79cx2up6ZvQCPO436A3p7bwZnYVAgMBAAECggEAZ53rVLSfMtUTmSe7ki4ubtCrgeuiPzfJTEgu5+RE8sthmzJXyeRmRhsYzS5h72Yy9glgZxGB2dtAMrnl//pddaAiQf8WkP99jVi4073MaGHn4CNTBxDmz4moYzIKzepMYTBeT0fkBEydwRzfB5x0X+zenXnL7QrSz+BHkN1p/8lhxCKrhYbo3udULcZZcA/v5xKA7lpBCsUFLwSwD+q2Tbaod+jGrwJCkqDpzM57/KWnKAFWxE0Hqgqevj6A2H7IEeEzCBB7OOYNI5QjpWzI4OfBI1qL0tAMoNoqAM136LcHnngNPRhsWEwKzk0MfsVGUwGS38cjz04g1/VxD0RY9QKBgQDLynACt7eWnXCi+U9gdun54m5e/1xatPCAkEFw3nrnpVI5aHlRhuvieio/LzaHCVJj78ZZqa9MKiIKgoPdd3WM6HJ3BsAWE8UEVl9rXuCHUOEhD3kpnItN2BrA3Ga0QnR49koNg1tmRNbPcem4blxIY+OnOts0plduMSrulMA34wKBgQDoA5kE8vxybpt9kQfNeqcAjhAYMNhXIBZsQOJc7MEAzXDmkPvw239Y+0dZkplcDI/FykCqHShzx+RaG39sQ3tfutCQzAVl+gTn2BeUQiMKJiH1+kf2FXkKZgbzPN77ReK3mpU0V75PIsy8qZc6fepuLxh4YONjDKRWfuZGf1vLpwKBgGi1PfIXhSvM/xets1wkHTn4Xq9O05wDheL4u7cLiOjGp8W5aUQ7Z625CUXns0OUxZF1nFtrdRdUOqNdxfUfsPVSZaXEgSOWys7ctjBL0l+Ubef3tFBuD6FSnQRk+hw6XO/d09S3nlmgmyKBLA5IHgBP2qOM+R5HLXr/pkhpg43zAoGBAN4fa6UQWF3ZxOVfLyAqt63RVFlEkio/Xxg+ujiKtXBmPxuOXJXIHtB6qWF493fn0tFig6wZhDvseJNH1iM5K+mHedvWZ6isx3uLJ2/aLZ+uyD6tYa2X+yzYZvkCItxfmOF8jjHxexJaV7abilwGZqUcU4oUAD44wTDKBv4hOinrAoGBAJIdNby7BKL5POFc2uc6MgOAv9uZrys8LU8wVTOFITBo3RPcUJzUr08dZBp3zhMhlZSMSSmE1whcnllJhg9Edx247quus3xB6m+B9tkLy83mIn8lN0ZDhdz+6d2IPkG6Rm4rWrshmd62kSsX45ltEzMFbxkiZu13PpGPmZdTIUck",
+        "PublicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuLJSsbQQO74Qy7nSBG01UiIs7Yklke7OOUIXhU9xrK+TbTl8B4VmmZD98qrm4j/A60KhOA59LBM0JNyOv/ApqkWHhGgHEyQbE7o4amGpKWHEF7k5ghlJtDTjflCEdZhI4fX76tk4LxKcoeqgE8xrc7kNnVcppm+q9i7iJQjpURVwTe4t2+QoZGKnarZecTCAgCYtgBdHm7zjwG9vGr9KOrf4yPUF8japFGvFmGgOjhCzZF/59rQShHCi6YMHDD4jbq5P7nrWucOWM+QJem3mEwKhePm0WJDAftlfkETnYdfQsS1SXZge5VAAdSe/XMdrqemb0AjzuN+gN6e28GZ2FQIDAQAB"
+      }
+    },
+    "UploadFile": { // تنظیمات آپلود فایل
+      "IsAuthenticated": false,
+      "LogSessionFile": true,
+      "CheckUserAccessFile": false,
+      "UploadUseDisk": "AWSChunkNotSupport", // FullDisk - FullMemory - ChunkMemoryFileDisk - AWS - AWSChunkNotSupport (only valid if FileSource=ObjectStorage, otherwise behaves like FullDisk)
+      "IntrenalChunckUseDisk": false, // false for keep chunk in ram --true fro keep chunk in hard
+      "EFUploadFileState": false,
+      "FileSource": "ObjectStorage", //FileTable for Windows -- Binary  for Linux -- ObjectStorage
+      "ObjectStorage": {
+        "DisablePayloadSigning": false, //false for http and true for https
+        "ChunkIndexStorage": "Redis", // Memory or Redis
+        "Service": "s3", //for s3 support object storage such as ceph,minio,..
+        "ServiceUrl": "http://192.168.91.80:8080",
+        "Bucket": "excel-file-bucket",
+        "AccessKey": "7594d98572934cbd92e7fc6f6f07a19d",
+        "SecretKey": "bbd4d05a2e2a4d08a0fe494a9b5517b6"
+      },
+      "MaxFileSessionCount": 100, // حداکثر تعداد سشن فایل  فایل در یک ساعت
+      "RateLimit": { // حداکثر تعداد آپلود فایل در یک بازه زمانی مشخص به ازای هر کاربر
+        "MaxUploadCount": 10, // حداکثر تعداد آپلود
+        "MaxUploadSize": 100, //حداکثر حجم فایل - بر حسب مگا بایت
+        "MaxDownloadSize": 1000, //حداکثر حجم دانلود فایل - بر حسب مگا بایت
+        "DurationMinutes": 10, // بازه زمانی بر حسب دقیقه
+        "BufferSize": 81920
+      },
+      "ImageFile": {
+        "MaxFileSize": 10, //حداکثر حجم فایل - بر حسب مگا بایت
+        "MaxChunkSize": 1024, // حداکثر حجم فایل - بر حسب کبلو بایت for aws set 5120
+        "MaxChunkCount": 100,
+        "FileExtensions": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png",
+          "svg",
+          "ico",
+          "tiff"
+        ]
+      },
+      "TextFile": {
+        "MaxFileSize": 50, //حداکثر حجم فایل - بر حسب مگا بایت
+        "MaxChunkSize": 1024, // حداکثر حجم فایل - بر حسب کبلو بایت for aws set 5120
+        "MaxChunkCount": 100,
+        "FileExtensions": [
+          "doc",
+          "pdf",
+          "xls",
+          "csv",
+          "ppt",
+          "txt",
+          "htm",
+          "docx",
+          "bmp",
+          "xlsx",
+          "pptx",
+          "tif",
+          "xml",
+          "epub",
+          "bpmn",
+          "cmmn"
+        ]
+      },
+      "VideoFile": {
+        "MaxFileSize": 100, //حداکثر حجم فایل - بر حسب مگا بایت
+        "MaxChunkSize": 1024, // حداکثر حجم فایل - بر حسب کبلو بایت for aws set 5120
+        "MaxChunkCount": 100,
+        "FileExtensions": [
+          "mp3",
+          "wma",
+          "wav",
+          "mp4",
+          "wmv",
+          "mpg",
+          "divx",
+          "div",
+          "tix",
+          "qt",
+          "mov",
+          "avi",
+          "mpa",
+          "mpe",
+          "m1v",
+          "bmp"
+        ]
+      },
+      "CompressFile": {
+        "MaxFileSize": 100, //حداکثر حجم فایل - بر حسب مگا بایت
+        "MaxChunkSize": 1024, // حداکثر حجم فایل - بر حسب کبلو بایت for aws set 5120
+        "MaxChunkCount": 100,
+        "FileExtensions": [
+          "rar",
+          "zip"
+        ]
+      },
+      "FontFile": {
+        "MaxFileSize": 10, //حداکثر حجم فایل - بر حسب مگا بایت
+        "MaxChunkSize": 1024, // حداکثر حجم فایل - بر حسب کبلو بایت for aws set 5120
+        "MaxChunkCount": 10,
+        "FileExtensions": [
+          "woff",
+          "woff2",
+          "ttf",
+          "eot"
+        ]
+      },
+      "AllFile": {
+        "MaxFileSize": 100, //حداکثر حجم فایل - بر حسب مگا بایت
+        "MaxChunkSize": 1024, // حداکثر حجم فایل - بر حسب کبلو بایت for aws set 5120
+        "MaxChunkCount": 100,
+        "FileExtensions": [
+          "jpg",
+          "jpeg",
+          "gif",
+          "png",
+          "svg",
+          "ico",
+          "doc",
+          "pdf",
+          "xls",
+          "csv",
+          "ppt",
+          "txt",
+          "htm",
+          "docx",
+          "bmp",
+          "xlsx",
+          "pptx",
+          "tif",
+          "xml",
+          "epub",
+          "bpmn",
+          "cmmn",
+          "mp3",
+          "wma",
+          "wav",
+          "mp4",
+          "wmv",
+          "mpg",
+          "divx",
+          "div",
+          "tix",
+          "qt",
+          "mov",
+          "avi",
+          "mpa",
+          "mpe",
+          "m1v",
+          "bmp",
+          "rar",
+          "zip",
+          "woff",
+          "woff2",
+          "ttf",
+          "eot"
+        ]
+      }
+    },
+    "Cartable": {
+      "CartableShowLinkType": 0, //0 modal Dialog , 1 New tab , 2 current Page
+      "ShowColumnsCartable": "0,1,2,5,6,8,9,10,12,13,15,17,18,20,21,22,23,24",
+      "ShowWfAutoTransmission": 0, //0:NotShow 1:Show 2:settings
+      "HistoryRecieverColumnConfig": "111", // 1:show  0:NotShow  Name, LName, UserName
+      "ShowCartableSenderColumnConfig": "1110", // 1:show  0:NotShow  Name, LName, UserName, DepPosName
+      "ShowCartableSenderColumnConfigType": 3, //cond [ A : B(tafviz) -> C ] - 1:Only A  - 2:Only B - 3:B from A(default) - 4:from A
+      "EnableCartableDynamicUser": 0, //0:False 1:True
+      "EnableCartableDynamicUserDepPos": 1,
+      "EnableCartableAccessMultiId": 1, //0:Inactive 1:Active 2:dynamic
+      "ShowCartableCount": 1, //Show Cartable Count = 1 , Don't Show Cartable Count = 0
+      "ActorModel": 2, //0 :old ,1 :new ,2 :both
+      "TaskListViewType": "TASK_LIST_PRO",
+      "TaskViewFooterPanel": "OPEN",
+      "TaskViewSideBarPanel": "OPEN",
+      "VisibleTaskListViewTypeButton": "1",
+      "TaskViewElementPerPage": "10",
+      "ElementPerPage": "10"
+    },
+    "Login": {
+      "AuthenticationCookieName": "PortalAuthentication",
+      "DisableAutoComplete": 1, //0:none - 1:page with username or pass textbox - 2:all pages
+      // همه ندارند 0
+      // 1 همه دارند
+      // 4 افرادي كه تعيين نشده اند دارند و طبق تعيين دستري
+      // 5 افرادي كه تعيين نشده اند ندارند و طبق تعيين دستري
+      "HaveNoJob": 4,
+      "NewUserMode": 1, // صفر:  کاربر جدید اگر دسترسی برایش تعریف نشده باشد همه منوها را می بیند - یک:کاربر جدید اگر دسترسی برایش تعریف نشده باشد چیزی نمی بیند
+      "FullUser": "admin",
+      "IntegrationEventUser": "admin",
+      "ShowCaptcha": 0, //1:show     0:not Show
+      "TypeCaptcha": 0, //0:Text     1:image
+      "SaveUserNameIndexLogin": 0, //دخیره نام کاربری- صفر یعنی ذخیره نشود- یک یعنی ذخیره شود
+      "BlockTimeDurationMinutes": 5, // مدت زمان مسدود ماندن کاربر به دقیقه
+      "MaxLoginAttemptsCount": 10, // حداکثر تعداد تلاش ناموفق جهت ورود به حساب کاربری
+      "LoginState": 0, // 1:Active Directory Checking 2: Database checking 6: IP Checking
+      "Domain": "www.user-server.com",
+      "ExceptUser": "",
+      "ImpersonateAllow": 1,
+      "ShowLoginPage": 1,
+      "Cookie": 0,
+      "changePasswordRequirement": 0,
+      "ShowLoginLogFail": 1,
+      "NotifyNewSesionLogin": false,
+      "RestrictPermissionsToSelfAccess": 0
+    },
+    "Cookie": {
+      "Domain": "", //kuber.lan
+      "Path": "/"
+    },
+    "Organization": {
+      "OrganizationAccess": false
+    },
+    "SSO": {
+      "EnableSSO": 1,
+      "CreateUser": 1,
+      "UpdateUser": 1,
+      "AssignGroupGuid": "",
+      "DepartmentPosition": {
+        "CreateDepartmentPosition": 0,
+        "Kind": 97,
+        "PostTitleId": 6,
+        "PostTitleKind": 2,
+        "JobId": 1,
+        "OrgId": 10,
+        "UserType": 1,
+        "ParentDepPosId": 10
+      },
+      "SSOList": [
+        {
+          "Title": "sso TAX_EXTERNAL login",
+          "Name": "TAX_EXTERNAL"
+        }
+      ]
+    },
+    "Publish": {
+      "LocalNuget": "http://192.168.100.36:1010/nuget/",
+      "LocalNPM": "https://repo.depna.com/repository/Depna-npm/"
+    },
+    "HealthCheck": {
+      "CheckUri": false,
+      "Uri": [
+        "https://google.com"
+      ]
+    },
+    "SearchEngine": {
+      "Active": false,
+      "Tokenizers": "Pipeline", //pipeline,nlp
+      "Analyzers": "UploadFile" //UploadFile - Ingest
+    },
+    "GISMap": {
+      "Type": "None", //None Star Neshan ParsiMap
+      "UrlService": "UrlService",
+      "UrlMap": "UrlMap",
+      "APIToken": "p1b72a84cdbf294d91bfe826f5dc18d39ff45ec5b4",
+      "MAPToken": "p172b12c62277e4c16882708e7a7c41ea1d64405ae"
+    },
+    "IntegCode": {
+      "IntegCodeHashAlgorithm": "MD5", // NullForce, MD5, SHA1, SHA256, SHA384, SHA512, HMACSHA256, CRC32
+      "IntegCodeEncryptionAlgorithm": "no-secure", // no-secure, Encryption(key any size)=> Encryption(key only size 16,24,32)=> aes-cfb,aes-ecb,aes-cbc
+      "IntegCodeEncryptionKey": "Depna_9Qe!vn3+wzo4p8tDl#",
+      "IntegCodeSaltMode": 0,
+      "EnableIdGuidInIntegCode": false,
+      "Validation": {
+        "Active": false,
+        "ExpireTime": 10000, // MS
+        "StartYearCluster": 2024,
+        "BuferSize": 1
+      }
+    },
+    "EndedInstanceCartable": {
+      "EndedCartableSettingEnum": "RequesterUser" // RequesterUser = 0     AllUser = 1
+    }
+  }
+}

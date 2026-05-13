@@ -1,0 +1,85 @@
+{
+  "Routes": {
+    "SystemMicroservices": [
+      {
+        "Name": "Upload",
+        "SiteName": "Tax.Portal.Upload",
+        "Url": "http://external-portal-upload-svc:5002",
+        "Path": "\\Microservices\\Portal\\Upload"
+      },
+      {
+        "Name": "Auth",
+        "SiteName": "Tax.Portal.Auth",
+        "Url": "http://external-portal-auth-svc:5005",
+        "Path": "\\Microservices\\Portal\\Auth"
+      },
+      {
+        "Name": "Log",
+        "SiteName": "Tax.Portal.Log",
+        "Url": "http://external-portal-log-svc:5017",
+        "Path": "\\Microservices\\Portal\\Log"
+      },
+      {
+        "Name": "Portal",
+        "SiteName": "Tax.Portal.Log",
+        "Url": "http://external-portal-portal-svc:5000",
+        "Path": "\\Microservices\\Portal\\Portal"
+      },
+      {
+        "Name": "Schedule",
+        "SiteName": "Tax.Portal.Schedule",
+        "Url": "http://external-portal-schedule-svc:5038",
+        "Path": "\\Microservices\\Portal\\Log"
+      },
+      {
+        "Name": "Setup",
+        "SiteName": "Tax.Portal.Schedule",
+        "Url": "http://external-portal-setup-svc:5012",
+        "Path": "\\Microservices\\Portal\\Log"
+      }
+    ],
+    "Gateways": [
+      {
+        "Name": "Internal",
+        "SiteName": "Tax.Portal.Internal.GW",
+        "Url": "http://external-portal-internal-gateway-svc:5014",
+        "Path": "\\ApiGateways\\Portal\\Internal\\ApiGateway",
+        "SystemMicroservices": [
+          "Upload",
+          "Auth",
+          "Log",
+          "Portal",
+          "Schedule",
+          "Setup"
+        ]
+      },
+      {
+        "Name": "Portal",
+        "SiteName": "Tax.Portal.Portal.GW",
+        "Url": "http://external-portal-portal-gateway-svc:5013",
+        "Path": "\\ApiGateways\\Portal\\Portal\\ApiGateway",
+        "SystemMicroservices": [
+          "Upload",
+          "Auth",
+          "Log",
+          "Portal",
+          "Schedule",
+          "Setup"
+        ]
+      }
+    ],
+    "Fronts": [
+      "http://br.alpha.nta.local",
+      "http://penalty-impunity.alpha.nta.local"
+    ],
+    "CheckOrigin": false,
+    "CheckHost": false,
+    "CheckXForwarded": false,
+    "CheckLoopbackClientIp": false,
+    "Webforms": {
+      "LegacyWebRootUrl": "http://192.168.91.148:5017",
+      "LegacyPath": "web",
+      "LegacyWeb": "D:\\dotNetCoreDevelop\\Web\\"
+    }
+  }
+}

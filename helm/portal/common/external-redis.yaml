@@ -1,0 +1,52 @@
+fullnameOverride: "external-portal-redis"
+
+architecture: standalone
+
+image:
+  registry: repo.nta.local:9801
+  repository: bitnamilegacy/redis
+  tag: 7.0.11-debian-11-r7
+
+auth:
+  enabled: true
+  password: "!@#123qwe"
+
+commonConfiguration: |-
+  #################################
+  # Session-only Redis configuration
+  #################################
+
+  # ---- Memory ----
+  maxmemory 2gb
+  maxmemory-policy allkeys-lru
+
+  # ---- Persistence OFF ----
+  appendonly no
+  save ""
+
+  # ---- Performance ----
+  lazyfree-lazy-eviction yes
+  lazyfree-lazy-expire yes
+  lazyfree-lazy-server-del yes
+  activedefrag yes
+
+  # ---- Network Safety ----
+  tcp-keepalive 300
+  timeout 0
+
+master:
+  persistence:
+    enabled: false
+
+  resources:
+    requests:
+      memory: 0Gi
+      cpu: 0m
+      ephemeral-storage: 0Mi
+    limits:
+      memory: 3Gi
+      cpu: 1
+      ephemeral-storage: 300Mi
+
+  service:
+    type: ClusterIP

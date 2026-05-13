@@ -1,0 +1,27 @@
+fullnameOverride: "internal-portal-rabbitmq"
+
+auth:
+  username: "kasra"
+  password: "kasra"
+  erlangCookie: "supersecretcookie123"
+
+clustering:
+  enabled: false
+
+resources: 
+  requests:
+    cpu: "0m"
+    memory: "0Mi"
+  limits:
+    cpu: "1"
+    memory: "3Gi"
+
+service:
+  type: ClusterIP
+  port: 5672
+  managerPort: 15672
+
+persistence:
+  enabled: false
+
+replicaCount: 1

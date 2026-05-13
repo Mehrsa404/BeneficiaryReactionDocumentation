@@ -1,0 +1,147 @@
+microservices:
+  beneficiary-reaction-front:
+    enabled: true
+    microserviceGroup: BENEFICIARY-REACTION-FRONT
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:9802
+      name: "tax_abriment/portal/mf-beneficiary-reaction"
+      pullPolicy: IfNotPresent
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 3000
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: br.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+    configmap:
+      autoConfig: true
+      env: {}
+      config:
+        env.js: |
+          window.env = {
+            "VITE_APIURL": "/portal-gateway", 
+            "VITE_GRAPHQLURL": "/portal-gateway", 
+            "VITE_WSURL": "/portal-gateway", 
+            "VITE_DEBUG_APIURL": "http://localhost:2010",
+            "VITE_RESPONSE_NAVIGATION": "ENABLE",
+            "VITE_AUTH": "auth",
+            "VITE_UPLOAD_REST": "/upload/gs",
+            "VITE_AUTH_GUEST": "auth/gs"
+          }
+        fileMounts:
+          - fileName: env.js
+            mountPath: /usr/share/nginx/html/env.js
+
+  beneficiary-reaction:
+    enabled: true
+    replicaCount: 1
+    microserviceGroup: TAX-PORTAL
+    image:
+      repository: repo.nta.local:9802
+      name: "tax_abriment/portal/beneficiary-reaction"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+        JAVA_XMS: 512M
+        JAVA_XMX: 512M
+        JAVA_NEW_SIZE: 64M
+        JAVA_MAX_NEW_SIZE: 128M
+        SERVER_PORT: "8080"
+        JAVA_TOOL_OPTIONS: -Xdebug -agentlib:jdwp=transport=dt_socket,address=0.0.0.0:5005,server=y,suspend=n
+        VAULT_URI: http://vault.nta.local:8200
+        VAULT_AUTH_METHOD: token
+        VAULT_TOKEN: ************
+        VAULT_KV_BACKEND: alpha-secret
+        VAULT_KV_APPLICATION_NAME: beneficiary-reaction,database-configs,kafka-configs
+        CONSUL_SCHEME: http
+        CONSUL_HOST: '192.168.92.82'
+        CONSUL_PORT: '8500'
+        CONSUL_CONFIG_ENABLED: 'true'
+        CONSUL_DEFAULT_CONTEXT: beneficiary-reaction
+        CONSUL_WATCH_ENABLED: 'true'
+        CONSUL_WAIT_TIME: '10'
+        CONSUL_DELAY: '1000'
+        KASRA_SDK_CONSUL_PATH: alpha/portal/external
+        KASRA_SDK_CONSUL_TOKEN: 08913506-ee60-d8cb-8400-23bd2227b635
+        OTEL_ENDPOINT: http://192.168.91.60:31666
+        OTEL_TRACES_ENDPOINT: http://192.168.91.60:31666/v1/traces
+        OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://192.168.91.60:31666/v1/traces
+        OTEL_EXPORTER_OTLP_TRACES_PROTOCOL: http/protobuf
+        P6SPY_ENABLE_LOGGING: 'true'
+        P6SPY_LOG_FORMAT: "%(executionTime)ms | %(category) | %(sqlSingleLine)"
+        ESB_TOKEN_URL: http://tax-service-simulator-svc.alpha-tp.svc.cluster.local:80
+        ESB_TOKEN_PATH: /api/data-gateway/oauth2
+        ESB_TOKEN_BASIC_AUTH: SuperSecretToken
+        GET_PERSON_FOLLOW_CODES_URL: http://tax-inquiry-svc.alpha-tp.svc.cluster.local:80
+        GET_PERSON_FOLLOW_CODES_PATH: /services/mock/view-react-information-file-code/RegisterByNationalId
+        SAYAH_URL: http://tax-service-simulator-svc.alpha-tp.svc.cluster.local:80
+        SAYAH_PATH: /api/data-reaction/sayyah
+        PERMANENT_DOWNLOAD_ADDRESS_PREFIX: http://br.alpha.nta.local/portal-gateway/upload/api/v1/fileupload/download/stream
+        TEMPORARY_DOWNLOAD_ADDRESS_PREFIX: http://br.alpha.nta.local/portal-gateway/upload/api/v1/export/download
+        CSV_EXPORT_FETCH_SIZE: '1000'
+        CSV_EXPORT_QUERY_TIMEOUT_MINUTE: '60'
+        CSV_EXPORT_MAX_RECORDS: '1000000'
+        CSV_EXPORT_MAX_FILE_PER_RESOURCE: '5'
+        FOLLOW_CODE_CHANGE_ENABLED: 'true'
+        FOLLOW_CODE_CHANGE_LIMIT: '1'
+        FOLLOW_CODE_HISTORY_LIMIT: '1'
+        MAX_NUMBER_OF_ARGS_IN_LOG: '5000000'
+        MAX_LENGTH_OF_ARG_IN_LOG: '500000'
+
+    service:
+      type: ClusterIP
+      port: 80
+      containerPort: 8080
+
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: ms-br.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+    resources:
+      limits:
+        cpu: 2500m
+        memory: 2G
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    serviceMesh:
+      enabled: false
+    livenessProbe:
+      httpGet:
+        path: management/health
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 20
+      periodSeconds: 20
+      failureThreshold: 20
+      timeoutSeconds: 5
+    readinessProbe:
+      httpGet:
+        path: management/health
+        port: 8080
+        scheme: HTTP
+      initialDelaySeconds: 20
+      periodSeconds: 20
+      failureThreshold: 20
+      timeoutSeconds: 5
+    debugPort:
+      enabled: true

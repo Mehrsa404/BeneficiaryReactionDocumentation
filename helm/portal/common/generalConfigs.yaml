@@ -1,0 +1,14 @@
+envGeneralConfigs:
+  - enabled: true
+    name: internal-portal-general-config
+    env:
+      CONSULSETTING_ADDRESS: 'http://192.168.92.82:8500'
+      CONSULSETTING_TOKEN: '08913506-ee60-d8cb-8400-23bd2227b635'
+      CONSULSETTING_PATH: 'alpha/portal/internal'
+  - enabled: true
+    name: external-portal-general-config
+    env:
+      CONSULSETTING_ADDRESS: 'http://192.168.92.82:8500'
+      CONSULSETTING_TOKEN: '08913506-ee60-d8cb-8400-23bd2227b635'
+      CONSULSETTING_PATH: 'alpha/portal/external'
+

@@ -1,0 +1,1206 @@
+microservices:
+  internal-portal-front:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-FRONT
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/front.portal"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env: { }
+      config:
+        env.js: |
+          window.env = {
+            "VITE_BASENAME": "کارتابل ادارات",
+            "VITE_TITLE": ".::کارتابل ادارات مالیاتی::.",
+            "VITE_IS_HTTPS": "0",
+            "VITE_DEFAULT_LANGUAGE": "fa",
+            "VITE_TEXT_FOOTER": "© کليه حقوق اين سامانه متعلق به سازمان امور مالياتی کشور می‌باشد. ویرایش 4.1",
+            "VITE_LINK_FOOTER": "",
+            "VITE_APIURL": "/portal-gateway",
+            "VITE_GRAPHQLURL": "/portal-gateway",
+            "VITE_WSURL": "/portal-gateway",
+            "VITE_MINI_KASRA_APP": "http://taxreturn.master.nta.local:7727",
+            "VITE_DEBUG_APIURL": "/portal-gateway",
+            "VITE_AUTH": "/auth/graphql",
+            "VITE_PORTAL": "/portal/graphql",
+            "VITE_BAM": "/bam/graphql",
+            "VITE_MANAGEMENT": "/management/graphql",
+            "VITE_CASE": "/case/graphql",
+            "VITE_FORM": "/form/graphql",
+            "VITE_AUTH_REST": "/auth/rest",
+            "VITE_PORTAL_REST": "/portal/rest",
+            "VITE_BAM_REST": "/bam/rest",
+            "VITE_MANAGEMENT_REST": "/management/rest",
+            "VITE_CASE_REST": "/case/rest",
+            "VITE_UPLOAD_REST": "/upload/rest",
+            "VITE_AVATAR": "/management/rest/api/v1/user/avatar",
+            "VITE_SENDER_AVATAR": "/management/rest/api/v1/user/senderavatar",
+            "VITE_JOB_LENGTH": "null",
+            "VITE_PRIMARY_COLOR": "#1f9e56",
+            "VITE_NAVBAR_TYPE": "floating",
+            "VITE_LOGIN_MODE": "DEFAULT",
+            "VITE_REMEMBER_PATH": "0"
+          }
+        fileMounts:
+          - fileName: env.js
+            mountPath: /usr/share/nginx/html/env.js
+    secrets:
+      - name: internal-portal-front-logo-secret
+        data:
+          logo.png: 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
+      - name: internal-portal-front-favicon-secret
+        data:
+          favicon.ico: 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
+    extraVolumeMounts:
+      - name: internal-portal-front-logo-volume
+        mountPath: /usr/share/nginx/html/logo.png
+        subPath: logo.png
+      - name: internal-portal-front-favicon-volume
+        mountPath: /usr/share/nginx/html/favicon.ico
+        subPath: favicon.ico
+    extraVolumes:
+      - name: internal-portal-front-logo-volume
+        secret:
+          secretName: internal-portal-front-logo-secret
+      - name: internal-portal-front-favicon-volume
+        secret:
+          secretName: internal-portal-front-favicon-secret
+    service:
+      type: ClusterIP
+      port: 80
+      targetPort: 8080
+
+  internal-portal-portal:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-PORTAL
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.portal"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5000
+
+  internal-portal-upload:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-UPLOAD
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.upload"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5002
+
+  internal-portal-case:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-CASE
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.case"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5004
+
+  internal-portal-auth:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-AUTH
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.auth"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5005
+
+  internal-portal-management:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-MANAGEMENT
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.management"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5007
+
+  internal-portal-workflow:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-WORKFLOW
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.workflow"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    service:
+      type: ClusterIP
+      port: 5009
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+
+  internal-portal-setup:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-SETUP
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.setup"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5012
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: internal-portal-setup.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+  internal-portal-log:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-LOG
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.log"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    service:
+      type: ClusterIP
+      port: 5017
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+
+  internal-portal-notification:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-NOTIFICATION
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.notification"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5039
+
+  internal-portal-portal-gateway:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-PORTAL-GATEWAY
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.portal.gw"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5013
+    ingresses:
+      - enabled: false
+        ingress:
+          className: nginx
+          hosts:
+            - host: internal-portal-portal-gateway.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+  internal-portal-internal-gateway:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-INTERNAL-GATEWAY
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.internal.gw"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5014
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: internal-portal-internal-gateway.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+  internal-portal-enterprise-gateway:
+    enabled: true
+    microserviceGroup: INTERNAL-PORTAL-ENTERPRISE-GATEWAY
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.enterprise.gw"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env: { }
+      envGeneralConfigs:
+        - name: internal-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5036
+    ingresses:
+      - enabled: false
+        ingress:
+          className: nginx
+          hosts:
+            - host: internal-portal-enterprise-gateway.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+  external-portal-upload:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-UPLOAD
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.upload"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5002
+
+  external-portal-auth:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-AUTH
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.auth"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5005
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: external-portal-auth.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+  external-portal-setup:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-SETUP
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.setup"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5012
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: external-portal-setup.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+  external-portal-log:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-LOG
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.log"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    service:
+      type: ClusterIP
+      port: 5017
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+
+  external-portal-portal-gateway:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-PORTAL-GATEWAY
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.portal.gw"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5013
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: /$1
+          hosts:
+            - host: br.alpha.nta.local
+              paths:
+                - path: /portal-gateway/(.*)
+                  pathType: Prefix
+      - enabled: true
+        ingress:
+          className: nginx
+          annotations:
+            nginx.ingress.kubernetes.io/rewrite-target: /$1
+          hosts:
+            - host: penalty-impunity.alpha.nta.local
+              paths:
+                - path: /portal-gateway/(.*)
+                  pathType: Prefix
+
+  external-portal-internal-gateway:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-INTERNAL-GATEWAY
+    replicaCount: 1
+    image:
+      repository: repo.nta.local:8084
+      name: "depna/portal.internal.gw"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5014
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: external-portal-internal-gateway.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+
+  external-portal-schedule:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-SCHEDULE
+    replicaCount: 1
+    image:
+      name: "depna/portal.schedule"
+      repository: repo.nta.local:8084
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "0Mi"
+    service:
+      type: ClusterIP
+      port: 5038
+
+  external-portal-portal:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-PORTAL
+    replicaCount: 1
+    image:
+      repository: repo.mohaymen.ir:8084
+      name: "depna/portal.portal"
+      pullPolicy: IfNotPresent
+    configmap:
+      autoConfig: true
+      env:
+      envGeneralConfigs:
+        - name: external-portal-general-config
+    service:
+      type: ClusterIP
+      port: 5000
+
+  external-portal-star-am:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-STAR-AM
+    replicaCount: 1
+    image:
+      name: "am-403.1"
+      repository: repo.mohaymen.ir:8082/starrelease
+    resources:
+      requests:
+        cpu: "200m"
+        memory: "512Mi"
+      limits:
+        cpu: "500m"
+        memory: "768Mi"
+    command:
+      [
+        "/bin/sh",
+        "-c",
+        "dotnet MigrationFramework.dll AutoMigration && dotnet MSSE.AM.dll",
+      ]
+    secrets:
+      - name: am-license
+        data:
+          License.xml: PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48TGljZW5zZT48TGljZW5zZUF0dHJpYnV0ZXM+PEF0dHJpYnV0ZSBuYW1lPSJzZXJ2aWNlTmFtZSI+QU08L0F0dHJpYnV0ZT48QXR0cmlidXRlIG5hbWU9ImV4cGlyYXRpb25EYXRlIj5UdWUsIDIzIEp1biAyMDI2IDA3OjQ5OjQzIEdNVDwvQXR0cmlidXRlPjwvTGljZW5zZUF0dHJpYnV0ZXM+PFNpZ25hdHVyZT5NRVVDSVFDR25zS1Njc3FwV2VOVHpKQ0RIS0VHOFZ2bVRFRVAwTjlJYWd1T2xtRk53Z0lnUC9kb0NGYVROWDd0Q0RRRnI1ZlBHYXZkS3pwWGx3QWVheUtlZlVKd20rYz08L1NpZ25hdHVyZT48L0xpY2Vuc2U+
+        mountPath: "/opt/MicroService.AccessManagement/output"
+    readinessProbe:
+      httpGet:
+        path: "/api/health"
+        port: 58081
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      failureThreshold: 5
+      timeoutSeconds: 5
+    livenessProbe:
+      httpGet:
+        path: "/api/health"
+        port: 58081
+      initialDelaySeconds: 600
+      periodSeconds: 60
+      failureThreshold: 10
+      timeoutSeconds: 10
+    service:
+      type: ClusterIP
+      port: 80
+      containerPort: 58081
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: external-portal-star-am.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+    configmap:
+      autoConfig: true
+      env:
+        MSSE.AM_ConsulAccessToken: "08913506-ee60-d8cb-8400-23bd2227b635"
+        MSSE.AM_ConsulConfigurationDirectoryPath: "alpha/portal/external/StarConfig"
+        MSSE.AM_ConsulServerAddress: "http://192.168.92.82:8500"
+        MSSE.AM_UseConsul: "true"
+
+  external-portal-star-web:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-STAR-WEB
+    replicaCount: 1
+    image:
+      name: "web-403.1"
+      repository: repo.mohaymen.ir:8082/starrelease
+    service:
+      type: ClusterIP
+      port: 80
+      containerPort: 8080
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: portal-star-web-nta.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix
+    resources:
+      requests:
+        cpu: "200m"
+        memory: "512Mi"
+      limits:
+        cpu: "500m"
+        memory: "768Mi"
+    configmap:
+      autoConfig: true
+      env: {}
+      config:
+        nginx.conf: |-
+          worker_processes 1;
+          pid /tmp/nginx.pid;
+          events {
+              worker_connections 1024;
+          }
+
+          http {
+              include mime.types;
+              sendfile on;
+              keepalive_timeout 650;
+
+              access_log /dev/stdout;
+              error_log /dev/stderr warn;
+
+              map $remote_addr $proxy_forwarded_elem {
+                  # IPv4 addresses can be sent as-is
+                  ~^[0-9.]+$          "for=$remote_addr";
+
+                  # IPv6 addresses need to be bracketed and quoted
+                  ~^[0-9A-Fa-f:.]+$   "for=\"[$remote_addr]\"";
+
+                  # Unix domain socket names cannot be represented in RFC 7239 syntax
+                  default             "for=unknown";
+              }
+
+              map $http_forwarded $proxy_add_forwarded {
+                  # If the incoming Forwarded header is syntactically valid, append to it
+                  "~^(,[ \\t]*)*([!#$%&'*+.^_`|~0-9A-Za-z-]+=([!#$%&'*+.^_`|~0-9A-Za-z-]+|\"([\\t \\x21\\x23-\\x5B\\x5D-\\x7E\\x80-\\xFF]|\\\\[\\t \\x21-\\x7E\\x80-\\xFF])*\"))?(;([!#$%&'*+.^_`|~0-9A-Za-z-]+=([!#$%&'*+.^_`|~0-9A-Za-z-]+|\"([\\t \\x21\\x23-\\x5B\\x5D-\\x7E\\x80-\\xFF]|\\\\[\\t \\x21-\\x7E\\x80-\\xFF])*\"))?)*([ \\t]*,([ \\t]*([!#$%&'*+.^_`|~0-9A-Za-z-]+=([!#$%&'*+.^_`|~0-9A-Za-z-]+|\"([\\t \\x21\\x23-\\x5B\\x5D-\\x7E\\x80-\\xFF]|\\\\[\\t \\x21-\\x7E\\x80-\\xFF])*\"))?(;([!#$%&'*+.^_`|~0-9A-Za-z-]+=([!#$%&'*+.^_`|~0-9A-Za-z-]+|\"([\\t \\x21\\x23-\\x5B\\x5D-\\x7E\\x80-\\xFF]|\\\\[\\t \\x21-\\x7E\\x80-\\xFF])*\"))?)*)?)*$" "$http_forwarded, $proxy_forwarded_elem";
+
+                  # Otherwise, replace it
+                  default "$proxy_forwarded_elem";
+              }
+
+              map $http_upgrade $proxy_connection {
+                  default upgrade;
+                  "" close;
+              }
+
+              map $http_host $this_host {
+                  "" $host;
+                  default $http_host;
+              }
+
+              map $http_x_forwarded_host $the_host {
+                  default $http_x_forwarded_host;
+                  "" $this_host;
+              }
+
+              server {
+                  absolute_redirect off;
+                  resolver kube-dns.kube-system.svc.cluster.local;
+                  listen 8080 default_server;
+                  listen [::]:8080 default_server;
+                  root /opt/output;
+
+                  add_header 'Access-Control-Allow-Origin' * always;
+                  add_header 'Access-Control-Allow-Credentials' 'true' always;
+                  add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+                  add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With' always;
+
+                  proxy_hide_header X-Req-Permission-UserId;
+                  proxy_hide_header X-Req-Permission-TargerSystemId;
+                  proxy_hide_header X-Req-Permission-TargerSystemPassword;
+
+                  location ~ bundles/assets/languages/languages-path-files.json {
+                      add_header Last-Modified $date_gmt;
+                      add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+                      if_modified_since off;
+                      etag off;
+                      expires -1;
+                  }
+
+                  location ~ web.uiconfign {
+                      add_header Last-Modified $date_gmt;
+                      add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+                      if_modified_since off;
+                      etag off;
+                      expires -1;
+                  }
+
+                  location ~ virtual-directory-config.js {
+                      add_header Last-Modified $date_gmt;
+                      add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+                      if_modified_since off;
+                      etag off;
+                      expires -1;
+                  }
+
+                  location ~ AllLanguages.js {
+                      add_header Last-Modified $date_gmt;
+                      add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+                      if_modified_since off;
+                      etag off;
+                      expires -1;
+                  }
+
+
+                  location ~ customization {
+                      add_header Last-Modified $date_gmt;
+                      add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+                      if_modified_since off;
+                      etag off;
+                      expires -1;
+                  }
+
+                  set $SERVER_AM_URL "http://external-portal-star-am-svc.portal.svc.cluster.local";
+                  set $SERVER_DIA_URL "http://external-portal-star-dia-svc.portal.svc.cluster.local";
+                  set $HTTP_X-Req-Permission-UserId "";
+
+                  proxy_http_version 1.1;
+                  client_header_buffer_size 1024k;
+                  large_client_header_buffers 4 1024k;
+
+                  location ~ [.]html$ {
+                      add_header Last-Modified $date_gmt;
+                      add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+                      if_modified_since off;
+                      etag off;
+                      expires -1;
+                  }
+
+                  location ~ gateway/MSSE.AM/(.*) {
+                      proxy_pass $SERVER_AM_URL/$1$is_args$query_string;
+                      proxy_set_header Forwarded "$proxy_add_forwarded;proto=$scheme";
+                  }              
+          
+                  location ~ gateway/MSSE.DIA/(.*) {
+                      proxy_pass $SERVER_DIA_URL/$1$is_args$query_string ;
+                      proxy_set_header Forwarded "$proxy_add_forwarded;proto=$scheme";
+                  }
+          
+                  rewrite .+/virtual-directory-config.js$ /virtual-directory-config.js redirect;
+                  rewrite ^/assets/monaco-editor/(.*) /bundles/assets/monaco-editor/$1 permanent;
+
+                  location / {
+                      try_files $uri /bundles/index.html;
+                  }
+              }
+          }
+
+        web.uiconfig: |-
+          <?xml version="1.0" encoding="utf-8"?>
+            <configuration>
+              <appSettings>
+                <add key="WebsiteDirection" value="rtl" />
+                <add key="WebsiteCalendar" value="Persian" />
+                <add key="WebsiteLanguage" value="fa-IR" />
+                <add key="LoginAnimatedBackground" value="true" />
+                <add key="LoginBackgroundImage" value="" />
+                <add key="LoginBackgroundColor" value="" />
+                <add key="LoginCustomizedLogo" value="" />
+                <add key="BrowserTabLogo" value="" />
+                <add key="ModuleLogo" value="" />
+                <add key="OpenModuleLogoImage" value="" />
+                <add key="OpenModuleLogoText" value="" />
+                <add key="SearchLogo" value="" />
+                <add key="SearchBackgroundImage" value="" />
+                <add key="WebTitle" value="" />
+                <add key="AutoLogout" value="0" />
+                <add key="UpdateSessionGapTime" value="5" />
+                <add key="HelpServerAddress" value="https://analytics.mohaymen.ir/stardocs/" />
+                <add key="DashboardOperationTimingLog" value="false" />
+                <add key="WebOperationsLog" value="false" />
+                <add key="IsAPMLogEnabled" value="false" />
+                <add key="ShowClientError" value="false" />
+                <add key="APMServerUrl" value="http://192.168.30.112:8200" />
+                <add key="APMServiceName" value="STAR_WEB" />
+                <add key="TargetSystemId.MSSE.AM" value="26F8580C-7E8B-4C0A-A724-D56B158C0CEE" />
+                <add key="TargetSystemId.MSSE.PAPortal" value="" />
+                <add key="TargetSystemId.MSSE.PADW" value="" />
+                <add key="TargetSystemId.MSSE.LAPortal" value="" />
+                <add key="TargetSystemId.MSSE.GIS" value="" />
+                <add key="TargetSystemId.MSSE.BaseModule" value="" />
+                <add key="TargetSystemId.MSSE.DIA" value="96690425-4fe9-0d85-3aad-0dba767b3458" />
+                <add key="TargetSystemId.MSSE.DM" value="" />
+                <add key="TargetSystemId.MSSE.LADW" value="" />
+                <add key="TargetSystemId.MSSE.StarDrive" value="" />
+                <add key="StoredExecutionNetworkTimeout" value="60" />
+                <add key="ExecutionNetworkTimeout" value="60" />
+                <add key="GetUserInfoInterval" value="300" />
+                <add key="ExternalPlatformBaseAddress" value="http://tolid.depna.com:8080/ITS/" />
+                <add key="ExternalPlatformRedirectPage" value="Default.aspx" />
+                <add key="ExternalPlatformBPMSId" value="" />
+                <add key="ExternalPlatformBPMSTitle" value="اسناد دیجیتال" />
+                <add key="ExternalPlatformBAMId" value="" />
+                <add key="ExternalPlatformBAMTitle" value="داشبورد" />
+                <add key="SSOType" value="Star" />
+                <add key="OnlyOfficeUrl" value="" />
+                <add key="BDMPIsEnableFileWarehouses" value="True" />
+                <add key="BDMPOnlyOfficeCallbackUrl" value=""/>
+              </appSettings>
+            </configuration>
+        fileMounts:
+          - fileName: nginx.conf
+            mountPath: /etc/nginx/nginx.conf
+          - fileName: web.uiconfig
+            mountPath: /opt/output/web.uiconfig
+
+  external-portal-star-dia:
+    enabled: true
+    microserviceGroup: EXTERNAL-PORTAL-STAR-DIA
+    replicaCount: 1
+    image:
+      name: "dia-403.1"
+      repository: repo.mohaymen.ir:8082/starrelease
+    command:
+      [
+        "/bin/sh",
+        "-c",
+        "dotnet MigrationFramework.dll Generating && dotnet MSSE.DIA.dll",
+      ]
+    secrets:
+      - name: dia-license
+        data:
+          License.xml: PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48TGljZW5zZT48TGljZW5zZUF0dHJpYnV0ZXM+PEF0dHJpYnV0ZSBuYW1lPSJzZXJ2aWNlTmFtZSI+RElBPC9BdHRyaWJ1dGU+PEF0dHJpYnV0ZSBuYW1lPSJleHBpcmF0aW9uRGF0ZSI+VHVlLCAyMyBKdW4gMjAyNiAwNzo0NDo0NiBHTVQ8L0F0dHJpYnV0ZT48L0xpY2Vuc2VBdHRyaWJ1dGVzPjxTaWduYXR1cmU+TUVVQ0lRQ2JhYjhMemhJTnlhWDdkbjNidHVhR3dNVXBQTUVvZUpyZmV3b0NUbTBLVEFJZ0QrMlo0K0Fkcm9GTXJvWE5jVE1ZN1dMVUV3MERRRlA1bzlac3h6UFpIZzg9PC9TaWduYXR1cmU+PC9MaWNlbnNlPg==
+        mountPath: "/opt/ETLEngine/output"
+    readinessProbe:
+      httpGet:
+        path: "/api/health"
+        port: 58088
+      initialDelaySeconds: 10
+      periodSeconds: 10
+      failureThreshold: 5
+      timeoutSeconds: 5
+    livenessProbe:
+      httpGet:
+        path: "/api/health"
+        port: 58088
+      initialDelaySeconds: 600
+      periodSeconds: 60
+      failureThreshold: 10
+      timeoutSeconds: 10
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+      requests:
+        cpu: "0m"
+        memory: "300Mi"
+    service:
+      type: ClusterIP
+      port: 80
+      containerPort: 58088
+    configmap:
+      autoConfig: true
+      env: {}
+      config:
+        DIA.config: |-
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <appSettings>
+              <add key="EnginePort" value="58088" />
+              <add key="BaseDataBase" value= "Data Source=192.168.91.150;Initial Catalog=A_Portal_DIA;User ID=sa;Password=!@#123qwe;MultipleActiveResultSets=True;Encrypt=False;TrustServerCertificate=False" />
+              <add key="UsePostgresqlDb" value="false" />
+              <add key="UseDefaultProcessorWhenProcessorNotFound" value="false"/>
+              <add key="SessionTimeout" value="1200" />
+              <add key="SessionCheckLoop" value="30" />
+              <add key="LogScenarios" value="false" />
+              <add key="JobUserName" value="admin" />
+              <add key="JobPassword" value="123" />
+              <add key="TargetSystemId" value="96690425-4fe9-0d85-3aad-0dba767b3458" />
+              <add key="TargetSystemPassword" value="!@#123qwe" />
+              <add key="IsManagerService" value="True" />
+              <add key="SchedulingManagement" value="True" />
+              <add key="DebugModeSchedulingManagement" value="True" />
+              <add key="AnalysisManagement" value="False" />
+              <add key="importer_logDetailsReport" value="False" />
+              <add key="FileOperationsLog" value="False" />
+              <add key="processScheduling_logDetailsReport" value="False" />
+              <add key="fileInformation_logDetailsReport" value="False" />
+              <add key="Executives_logDetailsReport" value="False" />
+              <add key="IsScenarioConfirmationForce" value="False" />
+              <add key="TableInput_logDetailsReport" value="False" />
+              <add key="BaseExporter_logDetailsReport" value="False" />
+              <add key="CaseManagement_ReportDetails" value="True" />
+              <add key="PluginExecution_ReportDetails" value="false" />
+              <add key="UseIsolated" value="false" />
+              <add key="UseServiceTemplateIsolated" value="False"/>
+              <add key="LogServiceTemplate" value="False" />
+              <add key="UseExecutiveIsolated" value="False" />
+              <add key="UseSponsor" value="True" />
+              <add key="MaxNodeSize" value="15000" />
+              <add key="MaxEdgeSize" value="1500000" />
+              <add key="UseTABLOCKX" value="True" />
+              <add key="AllowUsingIsolated" value="True" />
+              <add key="FetchRowCountInDataBase" value="true" />
+              <add key="UserCacheExpireTime" value="600" />
+              <add key="AccessCacheExpireTime" value="60" />
+              <add key="Script_UseRoslynCompiler" value="true" />
+              <add key="Oracle_DateTimeDefaultType" value="TimeStamp" />
+              <add key="InsertHint" value="true" />
+              <add key="PrintCommandOnError" value="false" />
+              <add key="UpdateApiDataDictionaryInCaseOfDuplicateInvokeId" value="false" />
+              <!--<add key="LogETLQueries" value="False"/>-->
+              <add key="ScenarioServiceCallApi_StorageRowCountLimit" value="100000" />
+              <add key="ScenarioServiceCallApi_StorageSizeMegaBytesLimit" value="10240" />
+              <add key="ScenarioServiceCallApi_MaxFetchBulkRowCountLimit" value="100000" />
+              <add key="ScenarioServiceCallApi_MaxFetchBulkSizeMegaBytesLimit" value="1024" />
+              <add key="UseMarsForEFConnection" value="true"/>
+              <add key="SqlServerMultipleCommandsOnOneConnection" value="True"/>
+              <add key="SetXActAbortOnAfterOpenConnection" value="False"/>
+              <add key="ConnectionTimeout_InSeconds" value="60"/>
+              <add key="ScenarioDesign_CacheEnabled" value="false" />
+              <add key="ScenarioDesign_CacheUpdateIntervalMinutes" value="1" />
+              <add key="DataSource_CacheEnabled" value="false" />
+              <add key="DataSource_TimeoutInMinute" value="5" />
+              <add key="ObjectCache_CheckVersionIntervalInMinute" value="1" />
+              <add key="Object_CacheEnabled" value="false" />
+              <add key="ObjectCache_TimeoutInMinute" value="5" />
+              <add key="LocalRam_StorageSizeMegaBytesLimit" value="" />
+              <add key="LocalRam_StorageRowCountLimit" value="2147483647" />
+              <add key="MaxRetryCountToOpenConnection" value="0" />
+              <add key="Swift_BadRequestLogEnabled" value="false" />
+              <add key="FtpLogEnable" value="true"/>
+              <add key="FtpReadTryCount" value="5"/>
+              <add key="UseNewQueries" value="false"/>
+              <!-- for oracle direct path insert! for more information see https://docs.oracle.com/cd/E11882_01/server.112/e41084/sql_elements006.htm#:~:text=The%20APPEND_VALUES%20hint%20instructs%20the%20optimizer%20to%20use,using%20existing%20space%20currently%20allocated%20to%20the%20table. -->
+              <add key="UsingSQLLoaderAppendValuesHint" value="false"/>
+              <add key="ImporterBulkInsertQueryHint" value="/*+ APPEND_VALUES */" />
+              <add key="ShowStackTraceInErrorResponse" value="true" />
+              <add key="ShowServiceVersionInErrorResponse" value="true" />
+              <add key="ShowGraphModule" value="false" />
+              <add key="SmbResponseTimeoutInMilliseconds" value="5000" />
+              <add key="DefaultShortExecuteTimeoutInMilliseconds" value="3000000" />
+              <add key="http_receive_timeout" value="10000"/>
+              <add key="KeepRedisPluginConnectionOpen" value="false"/>
+              <add key="UseDeepCopier" value="false"/>
+              <add key="UseScenarioConnectionPool" value="false"/>
+              <add key="UseNewConnection" value="false"/>
+              <add key="UsePrivateTemporaryTableInOracle" value="false"/>
+              <add key="UseKataQueryMaker" value="false"/>
+              <add key="UseTableAdaptor" value="false"/>
+              <add key="UseCSharpScripting" value="false"/>
+              <add key="DatabaseInformationDatabaseParallel" value="1"/>
+              <add key="DatabaseInformationSchemaParallel" value="4"/>
+              <add key="DatabaseInformationColumnParallel" value="4"/>
+              <add key="DatabaseInformationTableParallel" value="20"/>
+              <add key="ProvideOpenTelemetryPrometheusExporter" value="false"/>
+              <add key="StoreParametersInScenarioState" value="false"/>
+              <add key="ScenarioDesign_DebugEnabled" value="false"/>
+              <add key="UseConstantQuery" value="false"/>
+              <add key="SimpleScenarioExecution" value="false"/>
+              <add key="EnableExportSizeLimit" value="false"/>
+              <add key="ExcelExportSizeLimit" value="1024"/>
+              <add key="TextExportSizeLimit" value="1024"/>
+              <add key="BinaryExportSizeLimit" value="1024"/>
+              <add key="KafkaCommitterLogEnable" value="False"/>
+              <add key="OracleConnectionPoolEnabled" value="false" />
+              <add key="OracleConnectionPoolMinPoolSize" value="100" />
+              <add key="OracleConnectionPoolIncrPoolSize" value="10" />
+              <add key="OracleConnectionPoolDecrPoolSize" value="20" />
+              <add key="OracleConnectionPoolConnectionLifeTime" value="30" />
+              <add key="OracleConnectionPoolMaxPoolSize" value="200" />
+              <add key="LogTransferData" value="false" />
+              <add key="CheckConnectionStatus" value="false" />
+              <add key="DefaultMaxNumberOfRows" value="100000" />
+              <add key="IsScenarioOnObjectFramework" value="false"/>
+              <add key="UseAspRuntime" value="true" />
+              <add key="OpenTelemetry_ResourceServiceName" value="MSSE-DIA" />
+              <add key="OpenTelemetry_Tracing_IsEnable" value="false" />
+              <add key="OpenTelemetry_Tracing_OdpIsEnable" value="false" />
+              <add key="OpenTelemetry_Metrics_IsEnable" value="false" />
+              <add key="OpenTelemetry_Metrics_OdpIsEnable" value="false" />
+              <add key="OpenTelemetry_Logging_IsEnable" value="false" />
+              <add key="OpenTelemetry_Exporters_MetricsPrometheusExporterIsEnable" value="false" />
+              <add key="OpenTelemetry_Exporters_ConsoleIsEnable" value="false" />
+              <add key="OpenTelemetry_Exporters_OtlpIsEnable" value="true" />
+              <add key="OpenTelemetry_Exporters_OtelCollectorEndpoint" value="http://localhost:4317" />
+              <add key="CancelBulkCommandInTransferDataCancellation" value="true"/>
+              <add key="OracleMultipleCommandsOnOneConnection" value="true"/>
+              <add key="LogConnectionConfig" value="false"/>
+              <add key="StoreDynamicParametersInScenarioScope" value="false"/>
+              <add key="DataFlowExecutorDefaultWaitTimeBeforeRetryRequestsInMilliseconds" value="2500" />
+              <add key="ParametricScenarioExecutionEngineCloneDesign" value="true"/>
+              <add key="PackageRepositoryCloneDesign" value="true"/>
+              <add key="WaitForYesterdayUncompletedTaskToComplete" value="false"/>             
+            </appSettings>
+          </configuration>
+
+        LogConfig.config: |-
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <appSettings>
+              <add key="LogBasePath" value="" />
+              <add key="LogReportPath" value="" />
+              <add key="LogAuditPath" value="" />
+              <add key="LogSystemPath" value="" />
+              <add key="LogPerformancePath" value="" />
+              <add key="UnhandledLogFileExtension" value=".json" />
+              <add key="PerformanceLogFileExtension" value=".json" />
+              <add key="AuditLogFileExtension" value=".json" />
+              <add key="SeperateAuditLogFiles" value="false" />
+              <add key="LogJsonFormat" value="Indented" />
+              <add key="UnhandledLogDateTimeScale" value="Day" />
+              <add key="PerformanceLogDateTimeScale" value="Day" />
+              <add key="AuditLogDateTimeScale" value="Day" />
+              <add key="UnhandledLogArchive" value="true" />
+              <add key="PerformanceLogArchive" value="true" />
+              <add key="AuditLogArchive" value="true" />
+              <add key="UnhandledMaxLogFileSize" value="52428800" />
+              <add key="UnhandledMaxLogFileCount" value="2" />
+              <add key="PerformanceMaxLogFileSize" value="52428800" />
+              <add key="PerformanceMaxLogFileCount" value="2" />
+              <add key="AuditMaxLogFileSize" value="52428800" />
+              <add key="AuditMaxLogFileCount" value="2" />
+              <add key="IsApmServerRunning" value="false" />
+              <add key="ApmServerAddress" value="http://192.168.30.112:8200" />
+              <add key="LogFrameworkWithApm" value="false" />
+              <add key="LogPerformanceWithApm" value="true" />
+              <add key="LogHttpWithApm" value="true" />
+              <add key="LogSqlWithApm" value="true" />
+              <add key="PerformanceMetricLogInterval" value="15000" />
+              <add key="DumpThreadLogInterval" value="300000" />
+              <add key="EnableAuditLog" value="True" />
+              <add key="EnablePerformanceLog" value="True" />
+              <add key="EnableSystemLog" value="True" />
+              <add key="EnableGCLog" value="True" />
+              <add key="EnableLogAuditMimePath" value="False" />
+              <add key="LogAuditMimePath" value="path/to/directory" />
+              <add key="HideTextBetweenSingleQuotes" value="True" />
+              <add key="HardDriveLimitationPercentage" value="95" />
+              <add key="HardDriveCheckIntervalMinutes" value="1" />
+              <add key="LogBufferCapacity" value="1000" />
+              <add key="AuditLogEnableAsyncLogging" value="True" />
+              <add key="PerformanceLogEnableAsyncLogging" value="False" />
+              <add key="UnhandledLogEnableAsyncLogging" value="True" />
+            </appSettings>
+          </configuration>
+
+        MSSE.AM.Client.config: |-
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <appSettings>
+              <add key="EngineAddress" value="external-portal-star-am-svc" />
+              <add key="EnginePort" value="80" />
+              <add key="EngineHttps" value="false" />
+              <add key="EngineCertHash" value="46036F6844C5724E1391A4D449661FF1F8FC57D7" />
+            </appSettings>
+          </configuration>
+
+        MSSE.DIA.Client.config: |-
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <appSettings>
+              <add key="EngineAddress" value="star-dia-svc" />
+              <add key="EnginePort" value="80" />
+              <add key="EngineHttps" value="false" />
+              <add key="EngineCertHash" value="46036F6844C5724E1391A4D449661FF1F8FC57D7" />
+            </appSettings>
+          </configuration>
+
+        MSSE.DM.Client.config: |-
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <appSettings>
+              <add key="EngineAddress" value="star-dm-svc" />
+              <add key="EnginePort" value="80" />
+              <add key="EngineHttps" value="false" />
+              <add key="EngineCertHash" value="46036F6844C5724E1391A4D449661FF1F8FC57D7" />
+            </appSettings>
+          </configuration>
+        fileMounts:
+          - fileName: DIA.config
+            mountPath: /opt/ETLEngine/output/configs/DIA.config
+          - fileName: LogConfig.config
+            mountPath: /opt/ETLEngine/output/configs/LogConfig.config
+          - fileName: MSSE.AM.Client.config
+            mountPath: /opt/ETLEngine/output/configs/MSSE.AM.Client.config
+          - fileName: MSSE.DIA.Client.config
+            mountPath: /opt/ETLEngine/output/configs/MSSE.DIA.Client.config
+          - fileName: MSSE.DM.Client.config
+            mountPath: /opt/ETLEngine/output/configs/MSSE.DM.Client.config
+    ingresses:
+      - enabled: true
+        ingress:
+          className: nginx
+          hosts:
+            - host: external-portal-star-dia.alpha.nta.local
+              paths:
+                - path: /
+                  pathType: Prefix

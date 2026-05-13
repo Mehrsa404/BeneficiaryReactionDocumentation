@@ -1,0 +1,31 @@
+{
+  "Routes": {
+    "PortalExtendMicroservices": [
+      {
+        "Name": "BeneficiaryReaction",
+        "SiteName": "Tax.Portal.BeneficiaryReaction",
+        "Url": "http://beneficiary-reaction-svc:80",
+        "Path": "\\Microservices\\Portal\\BeneficiaryReaction",
+        "ENV": ""
+      },
+      {
+        "Name": "TaxPenaltyImpunity",
+        "SiteName": "Tax.Portal.TaxPenaltyImpunity",
+        "Url": "http://tax-penalty-impunity-svc:4561",
+        "Path": "\\Microservices\\Portal\\TaxPenaltyImpunity",
+        "ENV": ""
+      }
+    ]
+  ,
+    "Gateways": [
+      {
+        "Name": "Internal",
+        "PortalExtendMicroservices": ["BeneficiaryReaction",  "TaxPenaltyImpunity"]
+      },
+      {
+        "Name": "Portal",
+        "PortalExtendMicroservices": ["BeneficiaryReaction",  "TaxPenaltyImpunity"]
+      }
+    ]
+  }
+}

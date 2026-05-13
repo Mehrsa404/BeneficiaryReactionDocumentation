@@ -1,0 +1,14 @@
+{
+  "TAXEXTERNALSettings": [
+    {
+      "AppEnName": "BeneficiaryReaction",
+      "LoginUrl": "http://sso.alpha.nta.local/sso?url_back=http://br.alpha.nta.local/sso/TAX_EXTERNAL/result?code=200&state=1",
+      "LogOutUrl": "http://sso.alpha.nta.local/sso?url_back=http://br.alpha.nta.local/sso/TAX_EXTERNAL/result?code=200&state=1",
+      "ServiceUrl": "http://sso.alpha.nta.local",
+      "ServiceID": "894162",
+      "ServiceUserName": "Nv5MGP8dEKUsYJwU",
+      "ServicePassword": "Jqp79Xh2qShcp3Mq",
+      "BaseAnswerUrl": "http://br.alpha.nta.local"
+    }
+  ]
+}
